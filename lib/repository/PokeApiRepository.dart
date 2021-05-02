@@ -5,7 +5,7 @@ class PokeApiRepository{
   String url = "pokeapi.co";
 
   // Method to fetch the pokemons list with an offset and a size limit
-  Future<Map<String, dynamic>> fetchPokemonList(int limit, int offset) async {
+  dynamic fetchPokemonList(int limit, int offset) async {
     String path = 'api/v2/pokemon';
     var queryParameters = {
       'limit': limit.toString(),
@@ -15,7 +15,7 @@ class PokeApiRepository{
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Pokemon list request failed with status: ${response.statusCode}.');
@@ -24,13 +24,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of a pokemon through his name
-  Future<Map<String, dynamic>> fetchPokemonByName(String pokemonName) async {
+  dynamic fetchPokemonByName(String pokemonName) async {
     String path = 'api/v2/pokemon/' + pokemonName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Pokemon request by name failed with status: ${response.statusCode}.');
@@ -39,13 +39,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of an ability
-  Future<Map<String, dynamic>> fetchPokemonAbility(String abilityName) async {
+  dynamic fetchPokemonAbility(String abilityName) async {
     String path = 'api/v2/ability/' + abilityName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Ability request by name failed with status: ${response.statusCode}.');
@@ -54,13 +54,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of a form
-  Future<Map<String, dynamic>> fetchPokemonForm(String formName) async {
+  dynamic fetchPokemonForm(String formName) async {
     String path = 'api/v2/pokemon-form/' + formName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Form request by name failed with status: ${response.statusCode}.');
@@ -69,13 +69,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of a game indice version
-  Future<Map<String, dynamic>> fetchPokemonGameIndiceVersion(String versionName) async {
+  dynamic fetchPokemonGameIndiceVersion(String versionName) async {
     String path = 'api/v2/version/' + versionName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       var versionGroupName = await jsonResponse['version_group']['name'];
       var versionGroupJsonResponse = fetchPokemonGameIndiceVersionGroup(versionGroupName.toString());
       return versionGroupJsonResponse;
@@ -86,13 +86,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of a game indice group version
-  Future<Map<String, dynamic>> fetchPokemonGameIndiceVersionGroup(String versionGroupName) async {
+  dynamic fetchPokemonGameIndiceVersionGroup(String versionGroupName) async {
     String path = 'api/v2/version-group/' + versionGroupName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Game Indice group version request by name failed with status: ${response.statusCode}.');
@@ -101,13 +101,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of an item
-  Future<Map<String, dynamic>> fetchPokemonItem(String itemName) async {
+  dynamic fetchPokemonItem(String itemName) async {
     String path = 'api/v2/item/' + itemName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Item request by name failed with status: ${response.statusCode}.');
@@ -116,13 +116,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of an item attribute
-  Future<Map<String, dynamic>> fetchPokemonItemAttribute(String itemAttributeName) async {
+  dynamic fetchPokemonItemAttribute(String itemAttributeName) async {
     String path = 'api/v2/item-attribute/' + itemAttributeName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Item attribute request by name failed with status: ${response.statusCode}.');
@@ -131,13 +131,13 @@ class PokeApiRepository{
   }
 
   // Method to fetch the detailed info of a move
-  Future<Map<String, dynamic>> fetchPokemonMove(String moveName) async {
+  dynamic fetchPokemonMove(String moveName) async {
     String path = 'api/v2/move/' + moveName;
     var uri = Uri.https(url, path);
 
     var response = await http.get(uri);
     if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse = convert.jsonDecode(response.body);
       return jsonResponse;
     } else {
       print('Move request by name failed with status: ${response.statusCode}.');
