@@ -23,21 +23,6 @@ class PokeApiRepository{
     }
   }
 
-  // Method to fetch the detailed info of a pokemon through his id
-  Future<Map<String, dynamic>> fetchPokemonById(int pokemonId) async {
-    String path = 'api/v2/pokemon/' + pokemonId.toString();
-    var uri = Uri.https(url, path);
-
-    var response = await http.get(uri);
-    if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-      return jsonResponse;
-    } else {
-      print('Pokemon request by id failed with status: ${response.statusCode}.');
-      return null;
-    }
-  }
-
   // Method to fetch the detailed info of a pokemon through his name
   Future<Map<String, dynamic>> fetchPokemonByName(String pokemonName) async {
     String path = 'api/v2/pokemon/' + pokemonName;
