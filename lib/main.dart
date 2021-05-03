@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'Pokemon List',
-      home: PokemonList(title: 'Pokemon List'),
+      home: PokemonList(),
     );
   }
 }
