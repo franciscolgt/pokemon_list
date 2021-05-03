@@ -59,7 +59,7 @@ class PokemonMapper{
     List<Type> typesList = [];
     pokemonJson['types'].forEach((typeJson) { 
       var typeName = typeJson['type']['name'];
-      typesList.add(Type(typeName,'assets/images/homeScreen/' + typeName + '.svg'));
+      typesList.add(Type(typeName,'assets/images/pokemonTypes/' + typeName + '.svg'));
     });
 
     return Pokemon(name, experience, height, weight, image, abilitiesList, formsList, gameIndicesList, itemsList, movesList, statsList, typesList);
