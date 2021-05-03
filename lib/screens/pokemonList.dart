@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokemon_list/mappers/PokemonMapper.dart';
 import 'package:pokemon_list/screens/pokemonDetails.dart';
 import 'package:pokemon_list/utils/enterExitRoute.dart';
+import 'package:pokemon_list/utils/utils.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:pokemon_list/models/pokemon.dart';
@@ -66,39 +67,10 @@ class _PokemonListState extends State<PokemonList> {
     width = MediaQuery.of(context).size.width;
     widget = this.widget;
     return Scaffold(
-      appBar: _getAppBar(context),
+      appBar: Utils().getAppBar(context),
       body: _getBody(context)
     );
   }
-}
-
-PreferredSizeWidget _getAppBar(BuildContext context){
-  return AppBar(
-    backgroundColor: Color.fromRGBO(16, 16, 16, 1),
-    elevation: 0,
-    title: Container(
-      color: Color.fromRGBO(16, 16, 16, 1),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: height * 0.08,
-            width: width * 0.08,
-            margin: EdgeInsets.only(right: 5),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/appIcon/pokeball.png'),
-              )
-            )
-          ),
-          Text(
-            'Pokemon List',
-            style: TextStyle(fontSize: height * 0.025),
-          )
-        ],
-      ),
-    ),
-  );
 }
 
 Widget _getBody(BuildContext context){
