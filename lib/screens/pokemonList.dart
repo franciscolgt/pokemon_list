@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokemon_list/mappers/PokemonMapper.dart';
+import 'package:pokemon_list/screens/pokemonDetails.dart';
+import 'package:pokemon_list/utils/enterExitRoute.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:pokemon_list/models/pokemon.dart';
@@ -10,11 +12,11 @@ import 'package:pokemon_list/repository/PokeApiRepository.dart';
 
 var height;
 var width;
+var widget;
 final PagingController<int, Tuple2<Pokemon, Pokemon>> _pagingController = PagingController(firstPageKey: 0);
 
 class PokemonList extends StatefulWidget {
-  PokemonList({Key key, this.title}) : super(key: key);
-  final String title;
+  PokemonList({Key key}) : super(key: key);
 
   @override
   _PokemonListState createState() => _PokemonListState();
@@ -62,6 +64,7 @@ class _PokemonListState extends State<PokemonList> {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+    widget = this.widget;
     return Scaffold(
       appBar: _getAppBar(context),
       body: _getBody(context)
@@ -111,8 +114,8 @@ Widget _getBody(BuildContext context){
           itemBuilder: (context, pokemonPair, int) => Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _getPokemonContainer(pokemonPair.item1),
-              _getPokemonContainer(pokemonPair.item2)
+              _getPokemonContainer(context, pokemonPair.item1),
+              _getPokemonContainer(context, pokemonPair.item2)
             ]
           ),
           ),
@@ -121,7 +124,7 @@ Widget _getBody(BuildContext context){
     );
 }
 
-Widget _getPokemonContainer(Pokemon pokemon) {
+Widget _getPokemonContainer(BuildContext context,Pokemon pokemon) {
   return Container(
     height: height * 0.35, 
     width: width * 0.425, 
@@ -129,7 +132,9 @@ Widget _getPokemonContainer(Pokemon pokemon) {
     padding: EdgeInsets.only(top: height * 0.025),
     child: MaterialButton(
       splashColor: Colors.transparent,
-      onPressed: () => print(pokemon.name), 
+      onPressed: (){
+          Navigator.push(context, EnterExitRoute(exitPage: widget, enterPage: PokemonDetails(pokemon)));
+        },
       child: Column(
         children: [
           Image.network(pokemon.image, fit: BoxFit.fill),
