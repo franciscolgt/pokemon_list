@@ -5,7 +5,7 @@ import 'package:pokemon_list/mappers/PokemonMapper.dart';
 import 'package:tuple/tuple.dart';
 
 import 'models/pokemon.dart';
-import 'repository/PokeApiRepository.dart';
+import 'models/type.dart';
 import 'repository/PokeApiRepository.dart';
 
 var height;
@@ -55,13 +55,11 @@ class _PokemonListState extends State<PokemonList> {
         var pokemon2 = PokemonMapper().convertJsonToPokemon(await PokeApiRepository().fetchPokemonByName(pokemonListName[i+1]));
         pokemonList.add(Tuple2(pokemon1, pokemon2));
       }
-      print(pokemonList);
-      _pagingController.appendLastPage(pokemonList);
       final isLastPage = pokemonList.length < _pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(pokemonList);
       } else {
-        final nextPageKey = pageKey + pokemonList.length;
+        final nextPageKey = pageKey + pokemonList.length*2;
         _pagingController.appendPage(pokemonList, nextPageKey);
       }
     } catch (error) {
@@ -128,40 +126,69 @@ Widget _getBody(BuildContext context){
           itemBuilder: (context, pokemonPair, int) => Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: height * 0.4, 
-                width: width * 0.425,
-                alignment: Alignment.center,
-                child: Text(pokemonPair.item1.name, style: TextStyle(color: Colors.white)),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: Color.fromRGBO(30, 30, 30, 1), 
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1,
-                  )
-                ),
-                margin: EdgeInsets.only(bottom: width * 0.05)
-              ),
-              Container(
-                height: height * 0.4, 
-                width: width * 0.425, 
-                alignment: Alignment.center,
-                child: Text(pokemonPair.item2.name, style: TextStyle(color: Colors.white)),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: Color.fromRGBO(30, 30, 30, 1), 
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1,
-                  )
-                ),
-                margin: EdgeInsets.only(bottom: width * 0.05)
-              ),
+              _getPokemonContainer(pokemonPair.item1),
+              _getPokemonContainer(pokemonPair.item2)
             ]
           ),
           ),
         ),
       ),
     );
+}
+
+Widget _getPokemonContainer(Pokemon pokemon) {
+  return Container(
+    height: height * 0.35, 
+    width: width * 0.425, 
+    alignment: Alignment.center,
+    padding: EdgeInsets.only(top: height * 0.025),
+    child: MaterialButton(
+      splashColor: Colors.transparent,
+      onPressed: () => print(pokemon.name), 
+      child: Column(
+        children: [
+          Image.network(pokemon.image, fit: BoxFit.fill),
+          Container(
+            margin: EdgeInsets.only(top: height * 0.02, bottom: height * 0.02),
+            child: Text(pokemon.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: height * 0.02, color: Colors.white)),
+          ),
+          _getTypeIcons(pokemon.types)
+        ],
+      )
+    ),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(32),
+      color: Color.fromRGBO(30, 30, 30, 1), 
+      border: Border.all(
+        color: Colors.white,
+        width: 1,
+      )
+    ),
+    margin: EdgeInsets.only(bottom: width * 0.05)
+  );
+}
+
+Widget _getTypeIcons(List<Type> types){
+  List<Widget> typeIconsList = [];
+  for(var i=0; i<types.length; i++){
+    typeIconsList.add(_getTypeIcon(types[i]));
+  }
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: typeIconsList,
+  );
+  
+}
+
+Widget _getTypeIcon(Type type){
+  return Container(
+    height: height * 0.06,
+    width: width * 0.06,
+    margin: EdgeInsets.only(left: height * 0.01, right: height * 0.01),
+    child: CircleAvatar(
+      backgroundColor: Color.fromRGBO(30, 30, 30, 1),
+      child: SvgPicture.asset(type.image)
+    )
+  );
 }
