@@ -11,6 +11,8 @@ import 'package:pokemon_list/models/pokemon.dart';
 import 'package:pokemon_list/models/type.dart';
 import 'package:pokemon_list/repository/PokeApiRepository.dart';
 
+import 'package:pokemon_list/utils/globalVars.dart';
+
 var height;
 var width;
 var widget;
@@ -74,12 +76,11 @@ class _PokemonListState extends State<PokemonList> {
 }
 
 Widget _getBody(BuildContext context){
-  var containerPadding = width * 0.05;
   return Container(
-    color: Color.fromRGBO(30, 30, 30, 1),
-    padding: EdgeInsets.fromLTRB(containerPadding, containerPadding, containerPadding, containerPadding),
+    color: screenColor,
+    padding: EdgeInsets.all(width * 0.05),
     child: Container(
-      color: Color.fromRGBO(30, 30, 30, 1),
+      color: screenColor,
       child: PagedListView(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Tuple2<Pokemon,Pokemon>>(
@@ -120,7 +121,7 @@ Widget _getPokemonContainer(BuildContext context,Pokemon pokemon) {
     ),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(32),
-      color: Color.fromRGBO(30, 30, 30, 1), 
+      color: screenColor, 
       border: Border.all(
         color: Colors.white,
         width: 1,
@@ -149,7 +150,7 @@ Widget _getTypeIcon(Type type){
     width: width * 0.06,
     margin: EdgeInsets.only(left: height * 0.01, right: height * 0.01),
     child: CircleAvatar(
-      backgroundColor: Color.fromRGBO(30, 30, 30, 1),
+      backgroundColor: screenColor,
       child: SvgPicture.asset(type.image)
     )
   );
