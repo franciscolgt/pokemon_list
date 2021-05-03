@@ -29,6 +29,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_svg: ^0.22.0
+  infinite_scroll_pagination: ^3.0.1
+  tuple: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +42,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/pokemonTypes/
+    - assets/images/appIcon/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
