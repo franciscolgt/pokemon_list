@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:pokemon_list/utils/globalVars.dart';
+
 class Utils{
 
   PreferredSizeWidget getAppBar(BuildContext context){
     return AppBar(
-      backgroundColor: Color.fromRGBO(16, 16, 16, 1),
+      backgroundColor: appBarColor,
       elevation: 0,
       title: Container(
-        color: Color.fromRGBO(16, 16, 16, 1),
+        color: appBarColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
