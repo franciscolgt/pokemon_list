@@ -20,7 +20,8 @@ class PokemonMapper{
   }
 
   Pokemon convertJsonToPokemon(dynamic pokemonJson) {
-    String name = pokemonJson['name'];
+    String nameLowerCase = pokemonJson['name'];
+    String name = nameLowerCase[0].toUpperCase() + nameLowerCase.substring(1);
     int experience = int.parse(pokemonJson['base_experience'].toString());
     int height = int.parse(pokemonJson['height'].toString());
     int weight = int.parse(pokemonJson['weight'].toString());
