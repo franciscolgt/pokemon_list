@@ -7,7 +7,6 @@ import '../models/item.dart';
 import '../models/move.dart';
 import '../models/pokemon.dart';
 import '../models/stat.dart';
-import '../models/type.dart';
 
 class PokemonMapper{
 
@@ -57,10 +56,10 @@ class PokemonMapper{
       statsList.add(Stat(statJson['stat']['name'], int.parse(statJson['base_stat'].toString()), int.parse(statJson['effort'].toString())));
     });
 
-    List<Type> typesList = [];
+    List<String> typesList = [];
     pokemonJson['types'].forEach((typeJson) { 
       var typeName = typeJson['type']['name'];
-      typesList.add(Type(typeName,'assets/images/pokemonTypes/' + typeName + '.svg'));
+      typesList.add(typeName);
     });
 
     return Pokemon(name, experience, height, weight, image, abilitiesList, formsList, gameIndicesList, itemsList, movesList, statsList, typesList);
