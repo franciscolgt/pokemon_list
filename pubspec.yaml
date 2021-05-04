@@ -32,6 +32,8 @@ dependencies:
   flutter_svg: ^0.22.0
   infinite_scroll_pagination: ^3.0.1
   tuple: ^2.0.0
+  google_fonts: ^2.0.0
+  font_awesome_flutter: ^9.0.0
 
 dev_dependencies:
   flutter_test:
