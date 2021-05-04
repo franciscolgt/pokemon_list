@@ -4,7 +4,6 @@ import 'gameIndice.dart';
 import 'item.dart';
 import 'move.dart';
 import 'stat.dart';
-import 'type.dart';
 
 class Pokemon{
   String name;
@@ -18,7 +17,7 @@ class Pokemon{
   List<Item> items;
   List<Move> moves;
   List<Stat> stats;
-  List<Type> types;
+  List<String> types;
 
   Pokemon(this.name, this.experience, this.height, this.weight, this.image, 
           this.abilities, this.forms, this.gameIndices, this.items, this.moves, this.stats, this.types);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pokemon_list/screens/pokemonList.dart';
 
 void main() {
@@ -10,6 +11,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'Pokemon List',
+      theme: ThemeData(
+        primaryColor: Color(0xFF20233E),
+        backgroundColor: Color(0xFF414B77),
+        scaffoldBackgroundColor: Color(0xFF414B77)
+      ),
       home: PokemonList(),
     );
   }
