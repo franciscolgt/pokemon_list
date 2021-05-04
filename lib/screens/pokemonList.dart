@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokemon_list/mappers/PokemonMapper.dart';
 import 'package:pokemon_list/screens/pokemonDetails.dart';
 import 'package:pokemon_list/utils/enterExitRoute.dart';
+import 'package:pokemon_list/utils/typeIconsMap.dart';
 import 'package:pokemon_list/utils/utils.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:pokemon_list/models/pokemon.dart';
-import 'package:pokemon_list/models/type.dart';
 import 'package:pokemon_list/repository/PokeApiRepository.dart';
-
-import 'package:pokemon_list/utils/globalVars.dart';
 
 var height;
 var width;
@@ -77,10 +77,8 @@ class _PokemonListState extends State<PokemonList> {
 
 Widget _getBody(BuildContext context){
   return Container(
-    color: screenColor,
-    padding: EdgeInsets.all(width * 0.05),
+    padding: EdgeInsets.fromLTRB(width * 0.05, 0, width * 0.05, 0),
     child: Container(
-      color: screenColor,
       child: PagedListView(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Tuple2<Pokemon,Pokemon>>(
@@ -99,7 +97,7 @@ Widget _getBody(BuildContext context){
 
 Widget _getPokemonContainer(BuildContext context,Pokemon pokemon) {
   return Container(
-    height: height * 0.35, 
+    height: height * 0.31, 
     width: width * 0.425, 
     alignment: Alignment.center,
     padding: EdgeInsets.only(top: height * 0.025),
@@ -112,26 +110,29 @@ Widget _getPokemonContainer(BuildContext context,Pokemon pokemon) {
         children: [
           Image.network(pokemon.image, fit: BoxFit.fill),
           Container(
-            margin: EdgeInsets.only(top: height * 0.02, bottom: height * 0.02),
-            child: Text(pokemon.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: height * 0.02, color: Colors.white)),
+            child: Text(pokemon.name, style: GoogleFonts.lemonada(fontWeight: FontWeight.bold, fontSize: height * 0.02, color: Colors.white)),
           ),
           _getTypeIcons(pokemon.types)
         ],
       )
     ),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(32),
-      color: screenColor, 
-      border: Border.all(
-        color: Colors.white,
-        width: 1,
-      )
+      boxShadow: [
+          BoxShadow(
+          color: Colors.black12,
+          spreadRadius: 0,
+          blurRadius: 4,
+          offset: Offset(0, 4),
+        ),
+      ],
+      color: Color.fromRGBO(82, 94, 148, 1),
+      borderRadius: BorderRadius.circular(25),
     ),
     margin: EdgeInsets.only(bottom: width * 0.05)
   );
 }
 
-Widget _getTypeIcons(List<Type> types){
+Widget _getTypeIcons(List<String> types){
   List<Widget> typeIconsList = [];
   for(var i=0; i<types.length; i++){
     typeIconsList.add(_getTypeIcon(types[i]));
@@ -144,14 +145,26 @@ Widget _getTypeIcons(List<Type> types){
   
 }
 
-Widget _getTypeIcon(Type type){
+Widget _getTypeIcon(String type){
   return Container(
     height: height * 0.06,
     width: width * 0.06,
     margin: EdgeInsets.only(left: height * 0.01, right: height * 0.01),
     child: CircleAvatar(
-      backgroundColor: screenColor,
-      child: SvgPicture.asset(type.image)
+      child: SvgPicture.asset(
+        icons[type][0],
+      ),
+      backgroundColor: Colors.transparent,
+    ),
+    decoration: BoxDecoration(
+      color: icons[type][1],
+      shape: BoxShape.circle,
+      boxShadow: [
+          BoxShadow(
+          color: icons[type][2],
+          spreadRadius: 4
+        ),
+      ],
     )
   );
 }
