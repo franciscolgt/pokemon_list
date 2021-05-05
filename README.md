@@ -1,16 +1,38 @@
-# pokemon_list
+# Pokemon Challenge
 
-A new Flutter project.
+Flutter app to list all the pokemons from the PokeApi and their details
 
-## Getting Started
+#### Features
 
-This project is a starting point for a Flutter application.
+* Home Page with the list of all pokemons
 
-A few resources to get you started if this is your first Flutter project:
+[![Demo CountPages alpha](./gifs/homePage.gif)]
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Pokemon Detail Page with the information about a pokemon:
+    * Experience
+    * Weight
+    * Height
+    * Hp
+    * Attack
+    * Defense
+    * Speed
+    * A dropdown list with Moves
+    
+[![Demo CountPages alpha](./gifs/detailPage.gif)]
+
+#### TO-DO Features
+
+* Screens for the pokemon detail:
+    * Abilities
+    * Forms
+    * Game Indices
+    * Items and Item Attributes
+
+#### TESTS
+
+It were executed Unit tests and Widget tests
+* Unit Tests
+    * Tested the mappers that convert json values to domain entities
+* Widget Tests
+    * Tested if there is an AppBar
