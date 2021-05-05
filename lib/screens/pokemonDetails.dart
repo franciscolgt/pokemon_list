@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pokemon_list/models/stat.dart';
 
 import 'package:pokemon_list/utils/utils.dart';
 
@@ -41,7 +42,8 @@ Widget _getBody(BuildContext context){
       children: [
         _getPokemonImage(),
         _getPokemonName(),
-        _getStatsWidget(widget.pokemon.experience.toString(), widget.pokemon.height.toString(), widget.pokemon.weight.toString())
+        _getInfoWidget(widget.pokemon.experience.toString(), widget.pokemon.height.toString(), widget.pokemon.weight.toString()),
+        _getStatsWidget(widget.pokemon.stats)
       ],
     )
   );
@@ -71,7 +73,7 @@ Widget _getPokemonName(){
   );
 }
 
-Widget _getStatsWidget(String experience, String pokemonHeight, String weight){
+Widget _getInfoWidget(String experience, String pokemonHeight, String weight){
   return Container(
     margin: EdgeInsets.only(bottom: height * 0.02),
     child: Row(
@@ -111,5 +113,55 @@ Widget _getAttributeText(String value){
       fontSize: height * 0.025,
       color: Colors.white
     )
+  );
+}
+
+Widget _getStatsWidget(List<Stat> stats){
+  int hp = 0;
+  int attack = 0;
+  int defense = 0;
+  int speed = 0;
+  stats.forEach((s) { 
+    if(s.name == 'hp') hp = s.value;
+    if(s.name == 'attack') attack = s.value;
+    if(s.name == 'defense') defense = s.value;
+    if(s.name == 'speed') speed = s.value;
+  });
+  return Container(
+    height: 0.1 * height,
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _getStatContainer(FontAwesomeIcons.heartbeat, hp, Colors.red),
+            _getStatContainer(FontAwesomeIcons.fistRaised, attack, Colors.grey),
+            _getStatContainer(FontAwesomeIcons.shieldAlt, defense, Colors.blue),
+            _getStatContainer(FontAwesomeIcons.wind, speed, Colors.green)
+          ]
+        ),
+      ],
+    )
+  );
+}
+
+Widget _getStatContainer(IconData icon, int value, Color iconColor){
+  return Container(
+    height: height * 0.045,
+    width: width * 0.2,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.only(right: 5),
+          child: FaIcon(icon, color: iconColor)
+        ),
+        Text(value.toString(), style: GoogleFonts.ubuntu(fontSize: height * 0.025))
+      ],
+    ),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(16))
+    ),
   );
 }
